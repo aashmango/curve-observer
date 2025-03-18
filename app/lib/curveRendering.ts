@@ -1,4 +1,4 @@
-import { CurveParameters, CurveType, Point } from '../types/curves'
+import { CurveParameters, CurveType, Point, PolynomialParameters } from '../types/curves'
 import { evaluatePolynomial, evaluateBezier, evaluateParametricFunction } from './curveCalculations'
 import { transformX, transformY, setupCanvas, getCanvasContext } from './canvasUtils'
 
@@ -83,6 +83,11 @@ export function drawCurve(
 
   // Save the current context state
   ctx.save()
+
+  // Draw offset curves for polynomial
+  if (curveType === 'polynomial' && parameters.polynomial) {
+    drawOffsetPolynomialCurves(ctx, parameters.polynomial, config);
+  }
 
   // Set up the curve style
   ctx.strokeStyle = '#3b82f6'
@@ -228,4 +233,52 @@ export function drawControlPoints(
 
   // Restore the context state
   ctx.restore()
+}
+
+export function drawOffsetPolynomialCurves(
+  ctx: CanvasRenderingContext2D,
+  params: PolynomialParameters,
+  config: RenderConfig
+) {
+  const { padding, xMin, xMax, dimensions } = config;
+  const { coefficients } = params;
+  const numOffsets = 20; // Number of offset curves to draw
+  const offsetStep = 0.5; // Vertical distance between offset curves
+  
+  // Save the current context state
+  ctx.save();
+  
+  // Set up the offset curve style
+  ctx.lineWidth = 1;
+  
+  // Draw curves both above and below the main curve
+  for (let i = -numOffsets; i <= numOffsets; i++) {
+    if (i === 0) continue; // Skip the main curve as it will be drawn separately
+    
+    // Calculate color based on distance from main curve
+    const opacity = Math.max(0.05, 1 - Math.abs(i) / numOffsets);
+    ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
+    
+    const offset = i * offsetStep;
+    ctx.beginPath();
+    
+    let first = true;
+    for (let x = xMin; x <= xMax; x += 0.01) {
+      const y = evaluatePolynomial(x, coefficients) + offset;
+      const px = transformX(x, dimensions, config);
+      const py = transformY(y, dimensions, config);
+      
+      if (first) {
+        ctx.moveTo(px, py);
+        first = false;
+      } else {
+        ctx.lineTo(px, py);
+      }
+    }
+    
+    ctx.stroke();
+  }
+  
+  // Restore the context state
+  ctx.restore();
 } 
