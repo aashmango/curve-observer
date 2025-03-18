@@ -13,6 +13,8 @@ export default function Home() {
     polynomial: {
       degree: 2,
       coefficients: [1, 0, 0],
+      offsetStep: 0.5,
+      offsetCount: 20,
     },
     bezier: {
       degree: 2,

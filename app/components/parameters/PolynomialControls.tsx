@@ -8,7 +8,7 @@ interface PolynomialControlsProps {
 }
 
 export function PolynomialControls({ parameters, onParameterChange }: PolynomialControlsProps) {
-  const { degree, coefficients } = parameters
+  const { degree, coefficients, offsetStep = 0.5, offsetCount = 20 } = parameters
 
   return (
     <div className="space-y-4">
@@ -51,6 +51,35 @@ export function PolynomialControls({ parameters, onParameterChange }: Polynomial
             }}
           />
         ))}
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Offset Parameters</label>
+        <ParameterSlider
+          label="Offset Step"
+          value={offsetStep}
+          min={0.1}
+          max={2}
+          step={0.1}
+          onChange={(value) => {
+            onParameterChange({
+              ...parameters,
+              offsetStep: value,
+            })
+          }}
+        />
+        <ParameterSlider
+          label="Offset Count"
+          value={offsetCount}
+          min={0}
+          max={50}
+          step={1}
+          onChange={(value) => {
+            onParameterChange({
+              ...parameters,
+              offsetCount: value,
+            })
+          }}
+        />
       </div>
     </div>
   )

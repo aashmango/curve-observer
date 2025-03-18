@@ -241,9 +241,7 @@ export function drawOffsetPolynomialCurves(
   config: RenderConfig
 ) {
   const { padding, xMin, xMax, dimensions } = config;
-  const { coefficients } = params;
-  const numOffsets = 20; // Number of offset curves to draw
-  const offsetStep = 0.5; // Vertical distance between offset curves
+  const { coefficients, offsetStep = 0.5, offsetCount = 20 } = params;
   
   // Save the current context state
   ctx.save();
@@ -252,11 +250,11 @@ export function drawOffsetPolynomialCurves(
   ctx.lineWidth = 1;
   
   // Draw curves both above and below the main curve
-  for (let i = -numOffsets; i <= numOffsets; i++) {
+  for (let i = -offsetCount; i <= offsetCount; i++) {
     if (i === 0) continue; // Skip the main curve as it will be drawn separately
     
     // Calculate color based on distance from main curve
-    const opacity = Math.max(0.05, 1 - Math.abs(i) / numOffsets);
+    const opacity = Math.max(0.05, 1 - Math.abs(i) / offsetCount);
     ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
     
     const offset = i * offsetStep;

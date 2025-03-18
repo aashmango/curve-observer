@@ -8,6 +8,8 @@ export interface Point {
 export interface PolynomialParameters {
   degree: number
   coefficients: number[]
+  offsetStep?: number
+  offsetCount?: number
 }
 
 export interface BezierParameters {
