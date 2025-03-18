@@ -1,4 +1,4 @@
-export type CurveType = 'polynomial' | 'bezier' | 'parametric' | 'trigonometric' | 'exponential'
+export type CurveType = 'polynomial' | 'bezier' | 'parametric' | 'trigonometric' | 'exponential' | 'spline' | 'conic' | 'special'
 
 export interface Point {
   x: number

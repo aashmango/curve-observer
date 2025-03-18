@@ -68,12 +68,23 @@ const curveInfo: Record<CurveType, CurveInfo> = {
   spline: {
     name: 'Spline Curves',
     description: 'Piecewise polynomial functions that maintain smoothness between segments.',
+    details: `
+      Splines connect multiple polynomial segments with guaranteed smoothness at the joins:
+      
+      • B-splines: Basis splines with local control and smoothness properties
+      • NURBS: Non-uniform rational B-splines for complex shapes
+      • Catmull-Rom: Interpolating splines passing through control points
+      
+      The degree of smoothness (continuity) can be controlled, making splines versatile for various applications.
+    `,
     applications: [
-      'Data interpolation',
-      '3D modeling',
-      'Animation paths',
+      { name: 'Data Interpolation', description: 'Creating smooth curves through data points in scientific visualization' },
+      { name: '3D Modeling', description: 'Building complex surfaces in computer-aided design and animation' },
+      { name: 'Animation Paths', description: 'Creating natural motion for characters and objects' },
     ],
+    history: 'Splines were originally wooden strips used by draftsmen to draw smooth curves. They were mathematically formalized in the 1940s for aircraft design.',
     formula: 'Varies by spline type',
+    wikiLink: 'https://en.wikipedia.org/wiki/Spline_(mathematics)'
   },
   parametric: {
     name: 'Parametric Curves',
@@ -109,12 +120,24 @@ const curveInfo: Record<CurveType, CurveInfo> = {
   conic: {
     name: 'Conic Sections',
     description: 'Curves formed by intersecting a cone with a plane.',
+    details: `
+      The family of conic sections includes:
+      
+      • Circles: When the plane is perpendicular to the axis
+      • Ellipses: When the plane intersects all generators of the cone
+      • Parabolas: When the plane is parallel to a generator
+      • Hyperbolas: When the plane intersects both nappes of the cone
+      
+      These curves are unified by a common algebraic form and have important focal properties.
+    `,
     applications: [
-      'Planetary orbits',
-      'Optics and mirrors',
-      'Architecture',
+      { name: 'Planetary Orbits', description: 'Describing the elliptical paths of planets around stars' },
+      { name: 'Optics and Mirrors', description: 'Designing reflective surfaces with perfect focusing properties' },
+      { name: 'Architecture', description: 'Creating aesthetically pleasing and structurally sound arches and domes' },
     ],
+    history: 'First studied systematically by Apollonius of Perga around 200 BCE. Kepler later discovered that planets move in elliptical orbits, connecting conics to physics.',
     formula: 'ax² + bxy + cy² + dx + ey + f = 0',
+    wikiLink: 'https://en.wikipedia.org/wiki/Conic_section'
   },
   trigonometric: {
     name: 'Trigonometric Curves',
@@ -150,22 +173,46 @@ const curveInfo: Record<CurveType, CurveInfo> = {
   exponential: {
     name: 'Exponential Curves',
     description: 'Curves where the rate of change is proportional to the current value.',
+    details: `
+      Exponential functions have these key properties:
+      
+      • Constant relative growth rate
+      • Never touch the x-axis (except for special cases)
+      • Grow faster than any polynomial for large inputs
+      • Have natural inverse functions (logarithms)
+      
+      The base determines the growth rate, with e≈2.718 having special significance in calculus and natural phenomena.
+    `,
     applications: [
-      'Population growth',
-      'Compound interest',
-      'Radioactive decay',
+      { name: 'Population Growth', description: 'Modeling growth of populations over time' },
+      { name: 'Compound Interest', description: 'Calculating interest that accrues on both initial principal and accumulated interest' },
+      { name: 'Radioactive Decay', description: 'Describing the decay of unstable atoms over time' },
     ],
+    history: 'The mathematical study of exponential functions developed alongside logarithms in the 17th century, with major contributions from John Napier and Euler.',
     formula: 'y = ab^x + c',
+    wikiLink: 'https://en.wikipedia.org/wiki/Exponential_function'
   },
   special: {
     name: 'Special Curves',
     description: 'Named curves with unique properties and historical significance.',
+    details: `
+      Special curves include:
+      
+      • Spirals: Archimedean, logarithmic, and Fermat's spirals
+      • Cycloids: Curves traced by points on a rolling circle
+      • Lissajous figures: Created by harmonic oscillations in perpendicular directions
+      • Catenary: The shape of a hanging chain
+      
+      These curves often arise from geometric constructions or physical phenomena.
+    `,
     applications: [
-      'Mathematical modeling',
-      'Artistic design',
-      'Engineering problems',
+      { name: 'Mathematical Modeling', description: 'Creating mathematical representations of real-world phenomena' },
+      { name: 'Artistic Design', description: 'Creating aesthetic curves and shapes in art and design' },
+      { name: 'Engineering Problems', description: 'Solving specialized engineering challenges' },
     ],
+    history: 'Many special curves were discovered and studied by ancient and Renaissance mathematicians, often arising from practical problems in astronomy, optics, or mechanics.',
     formula: 'Varies by curve type',
+    wikiLink: 'https://en.wikipedia.org/wiki/List_of_curves'
   },
 } as const
 
